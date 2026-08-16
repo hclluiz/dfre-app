@@ -8,24 +8,68 @@
 </head>
 <body>
 
+  <!-- ===== HEADER ===== -->
   <header class="header">
     <div class="logo">DFRE</div>
     <nav class="nav">
       <a href="#inicio">Início</a>
       <a href="#sobre">Sobre</a>
+      <a href="#produtos">Produtos</a>
       <a href="#contato">Contato</a>
     </nav>
   </header>
 
+  <!-- ===== HERO ===== -->
   <section class="hero" id="inicio">
     <h1 class="hero-title">Disciplina que transforma.</h1>
     <p class="hero-subtitle">Construindo hábitos, mentalidade e resultados reais.</p>
-    <a href="#sobre" class="hero-button">Conheça mais</a>
+    <a href="#produtos" class="hero-button">Conheça o app</a>
   </section>
 
+  <!-- ===== SOBRE ===== -->
   <section class="sobre" id="sobre">
-    <h2>Sobre</h2>
-    <p>Essa seção vai contar a história e o propósito do DFRE.</p>
+    <h2>Sobre a DFRE</h2>
+    <p>Aqui vai a história e o propósito por trás da marca — o que motivou a criação do Manual da Disciplina e do app.</p>
+  </section>
+
+  <!-- ===== PRODUTOS / SERVIÇOS ===== -->
+  <section class="produtos" id="produtos">
+    <h2>Nossos Produtos</h2>
+    <div class="produtos-grid">
+
+      <div class="produto-card produto-destaque">
+        <span class="produto-tag">Principal</span>
+        <h3>App DFRE</h3>
+        <p>O acompanhamento diário de disciplina, hábitos e evolução — nosso produto principal.</p>
+        <a href="#contato" class="produto-link">Saiba mais</a>
+      </div>
+
+      <div class="produto-card">
+        <h3>Manual da Disciplina</h3>
+        <p>O ebook que dá o pontapé inicial: os códigos e princípios da disciplina em formato prático.</p>
+        <a href="#contato" class="produto-link">Saiba mais</a>
+      </div>
+
+      <div class="produto-card">
+        <h3>DFRE Agency</h3>
+        <p>Estratégia e execução para marcas que querem crescer com consistência.</p>
+        <a href="#contato" class="produto-link">Saiba mais</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== CONTATO ===== -->
+  <section class="contato" id="contato">
+    <h2>Fale com a gente</h2>
+    <p>Tem interesse no app, no ebook ou na agência? Manda uma mensagem.</p>
+
+    <form class="contato-form">
+      <input type="text" name="nome" placeholder="Seu nome" required>
+      <input type="email" name="email" placeholder="Seu e-mail" required>
+      <textarea name="mensagem" placeholder="Sua mensagem" rows="4" required></textarea>
+      <button type="submit">Enviar</button>
+    </form>
   </section>
 
   <script src="script.js"></script>

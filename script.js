@@ -1,5 +1,5 @@
-// Faz a seção "Sobre" aparecer com animação quando o usuário rola a página até ela
-const secaoSobre = document.querySelector('.sobre');
+// Faz cada seção aparecer com animação quando o usuário rola a página até ela
+const secoesAnimadas = document.querySelectorAll('.sobre, .produtos, .contato');
 
 const observador = new IntersectionObserver((entradas) => {
   entradas.forEach((entrada) => {
@@ -7,6 +7,18 @@ const observador = new IntersectionObserver((entradas) => {
       entrada.target.classList.add('visivel');
     }
   });
-}, { threshold: 0.2 });
+}, { threshold: 0.15 });
 
-observador.observe(secaoSobre);
+secoesAnimadas.forEach((secao) => observador.observe(secao));
+
+// Envio do formulário de contato (por enquanto só um retorno visual,
+// depois conectamos com um serviço de e-mail ou backend de verdade)
+const formulario = document.querySelector('.contato-form');
+
+if (formulario) {
+  formulario.addEventListener('submit', (evento) => {
+    evento.preventDefault();
+    alert('Mensagem recebida! Em breve entraremos em contato.');
+    formulario.reset();
+  });
+}
