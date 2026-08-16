@@ -4,19 +4,17 @@
   box-sizing: border-box;
 }
 
+html, body {
+  height: 100%;
+}
+
 body {
   font-family: 'Segoe UI', Arial, sans-serif;
   background-color: #0d0d0d;
   color: #f5f5f5;
-  overflow-x: hidden;
 }
 
-section h2 {
-  font-size: 32px;
-  margin-bottom: 16px;
-}
-
-/* ===== HEADER ===== */
+/* ===== HEADER (fixo por cima da experiência 3D) ===== */
 .header {
   display: flex;
   justify-content: space-between;
@@ -26,8 +24,8 @@ section h2 {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 10;
-  background: rgba(13, 13, 13, 0.6);
+  z-index: 100;
+  background: rgba(13, 13, 13, 0.5);
   backdrop-filter: blur(8px);
 }
 
@@ -43,6 +41,7 @@ section h2 {
   margin-left: 32px;
   font-size: 15px;
   opacity: 0.8;
+  cursor: pointer;
   transition: opacity 0.3s ease;
 }
 
@@ -50,38 +49,90 @@ section h2 {
   opacity: 1;
 }
 
-/* ===== HERO ===== */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+/* =========================================================
+   ESPAÇO DE ROLAGEM
+   Essa div não tem conteúdo visível — ela só existe pra criar
+   altura na página e assim gerar uma barra de rolagem.
+   O JavaScript lê a posição do scroll aqui e usa esse número
+   pra calcular a posição 3D de cada painel lá embaixo.
+   ========================================================= */
+.scroll-space {
+  /* 6 "telas" de altura = espaço pra rolar por 5 painéis com folga no final */
+  height: 600vh;
+}
+
+/* =========================================================
+   JANELA 3D (viewport)
+   Fica fixa na tela inteira. "perspective" é o que dá a
+   sensação de profundidade: quanto menor o valor, mais
+   exagerado o efeito 3D.
+   ========================================================= */
+.viewport {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  perspective: 1400px;
+  background: #0d0d0d;
+}
+
+.scene {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+/* =========================================================
+   PAINÉIS
+   Cada seção começa "longe" (pequena, transparente) e o
+   JavaScript vai atualizando seu transform conforme o
+   usuário rola, fazendo ela se aproximar, ocupar a tela,
+   e depois continuar "voando" na direção da câmera.
+   ========================================================= */
+.panel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(700px, 88vw);
   text-align: center;
-  padding: 0 24px;
+  transform-origin: center center;
+  will-change: transform, opacity;
+  /* posição inicial: bem longe e invisível.
+     o JavaScript sobrescreve isso a cada frame de scroll */
+  transform: translate(-50%, -50%) translateZ(-3000px) scale(0.2);
+  opacity: 0;
+}
+
+.panel-produtos {
+  width: min(1000px, 92vw);
+}
+
+.panel h1,
+.panel h2 {
+  font-weight: 800;
 }
 
 .hero-title {
-  font-size: clamp(36px, 6vw, 72px);
-  font-weight: 800;
-  max-width: 900px;
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeUp 1s ease forwards;
+  font-size: clamp(32px, 6vw, 68px);
 }
 
-.hero-subtitle {
+.hero-subtitle,
+.panel-texto {
   margin-top: 20px;
-  font-size: clamp(16px, 2vw, 20px);
+  font-size: clamp(15px, 2vw, 19px);
   color: #b3b3b3;
-  max-width: 600px;
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeUp 1s ease forwards;
-  animation-delay: 0.3s;
+}
+
+.panel h2 {
+  font-size: clamp(28px, 4vw, 40px);
+  margin-bottom: 16px;
 }
 
 .hero-button {
+  display: inline-block;
   margin-top: 36px;
   padding: 14px 32px;
   border-radius: 30px;
@@ -89,10 +140,6 @@ section h2 {
   color: #0d0d0d;
   text-decoration: none;
   font-weight: 600;
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeUp 1s ease forwards;
-  animation-delay: 0.6s;
   transition: transform 0.3s ease;
 }
 
@@ -100,73 +147,37 @@ section h2 {
   transform: scale(1.05);
 }
 
-@keyframes fadeUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ===== SOBRE (aparece ao rolar a página) ===== */
-.sobre {
-  min-height: 60vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 60px 24px;
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.sobre.visivel {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.sobre p {
-  color: #b3b3b3;
-  max-width: 500px;
-}
-
 /* ===== PRODUTOS ===== */
-.produtos {
-  padding: 80px 24px;
-  text-align: center;
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.produtos.visivel {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 .produtos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 24px;
-  max-width: 1000px;
-  margin: 40px auto 0;
+  margin-top: 40px;
 }
 
 .produto-card {
   background: #161616;
   border: 1px solid #262626;
   border-radius: 16px;
-  padding: 32px 24px;
+  padding: 28px 22px;
   text-align: left;
   position: relative;
-  transition: transform 0.3s ease, border-color 0.3s ease;
+
+  /* estado inicial: escondido, vai aparecer com um pequeno atraso
+     em cascata quando o painel de produtos estiver ativo */
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
-.produto-card:hover {
-  transform: translateY(-6px);
-  border-color: #444;
+.panel-produtos.ativo .produto-card {
+  opacity: 1;
+  transform: translateY(0);
 }
+
+.panel-produtos.ativo .produto-card:nth-child(1) { transition-delay: 0.05s; }
+.panel-produtos.ativo .produto-card:nth-child(2) { transition-delay: 0.2s; }
+.panel-produtos.ativo .produto-card:nth-child(3) { transition-delay: 0.35s; }
 
 .produto-destaque {
   border-color: #f5f5f5;
@@ -184,14 +195,14 @@ section h2 {
 }
 
 .produto-card h3 {
-  font-size: 20px;
-  margin-bottom: 12px;
+  font-size: 19px;
+  margin-bottom: 10px;
 }
 
 .produto-card p {
   color: #b3b3b3;
   font-size: 14px;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 
 .produto-link {
@@ -203,28 +214,214 @@ section h2 {
   padding-bottom: 2px;
 }
 
-/* ===== CONTATO ===== */
-.contato {
-  padding: 80px 24px 100px;
-  text-align: center;
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+/* =========================================================
+   GALÁXIA DO APP
+   Cada "nó" flutua suavemente usando @keyframes, com posição
+   base definida por variáveis CSS (--x, --y) no próprio HTML,
+   assim cada elemento fica espalhado sem precisar repetir CSS.
+   ========================================================= */
+.panel-galaxia {
+  width: min(900px, 92vw);
 }
 
-.contato.visivel {
+.galaxia-instrucao {
+  margin-top: 4px;
+  margin-bottom: 0;
+}
+
+.galaxia-elementos {
+  position: relative;
+  height: 420px;
+  margin-top: 20px;
+  isolation: isolate; /* garante que o fundo não vaze por cima dos nós */
+}
+
+/* fundo tipo "nebulosa" atrás dos elementos */
+.galaxia-fundo {
+  position: absolute;
+  inset: -40px;
+  z-index: -2;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(124, 92, 255, 0.25), transparent 55%),
+    radial-gradient(circle at 70% 65%, rgba(92, 214, 255, 0.2), transparent 55%),
+    radial-gradient(circle at 50% 85%, rgba(255, 92, 138, 0.15), transparent 55%);
+  filter: blur(20px);
+  animation: nebulosaPulsar 10s ease-in-out infinite;
+}
+
+@keyframes nebulosaPulsar {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.08); opacity: 1; }
+}
+
+/* estrelinhas geradas via JavaScript, cada uma pisca em um tempo diferente */
+.galaxia-estrelas {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.estrela {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: #ffffff;
+  animation: piscar 3s ease-in-out infinite;
+}
+
+@keyframes piscar {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.9; }
+}
+
+/* anéis orbitando ao redor do centro, reforçando a sensação de sistema */
+.galaxia-anel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 1px dashed rgba(245, 245, 245, 0.12);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+
+.galaxia-anel-1 {
+  width: 280px;
+  height: 280px;
+  animation: girar 40s linear infinite;
+}
+
+.galaxia-anel-2 {
+  width: 400px;
+  height: 400px;
+  border-color: rgba(245, 245, 245, 0.07);
+  animation: girar 60s linear infinite reverse;
+}
+
+@keyframes girar {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.galaxia-no {
+  position: absolute;
+  top: calc(50% + var(--y));
+  left: calc(50% + var(--x));
+  transform: translate(-50%, -50%);
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--cor) 55%, transparent);
+  background: radial-gradient(circle at 30% 30%, color-mix(in srgb, var(--cor) 25%, #0d0d0d), #0d0d0d 70%);
+  color: #f5f5f5;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 8px;
+  animation: flutuar 6s ease-in-out infinite, brilhar 4s ease-in-out infinite;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.galaxia-no:hover {
+  border-color: var(--cor);
+  box-shadow: 0 0 32px color-mix(in srgb, var(--cor) 60%, transparent);
+}
+
+.galaxia-no-central {
+  width: 120px;
+  height: 120px;
+  animation-duration: 8s, 4s;
+}
+
+/* pequenas variações de tempo/atraso pra não flutuarem todos juntos */
+.galaxia-no:nth-child(4) { animation-delay: 0s, 0s; }
+.galaxia-no:nth-child(5) { animation-delay: 1.2s, 0.5s; }
+.galaxia-no:nth-child(6) { animation-delay: 0.6s, 1s; }
+.galaxia-no:nth-child(7) { animation-delay: 2s, 1.5s; }
+.galaxia-no:nth-child(8) { animation-delay: 0.3s, 2s; }
+
+@keyframes flutuar {
+  0%, 100% { transform: translate(-50%, -50%) translateY(0) translateX(0); }
+  33% { transform: translate(-50%, -50%) translateY(-14px) translateX(6px); }
+  66% { transform: translate(-50%, -50%) translateY(6px) translateX(-8px); }
+}
+
+@keyframes brilhar {
+  0%, 100% { box-shadow: 0 0 14px color-mix(in srgb, var(--cor) 35%, transparent); }
+  50% { box-shadow: 0 0 26px color-mix(in srgb, var(--cor) 55%, transparent); }
+}
+
+/* quando um elemento está com detalhes abertos, os outros escurecem */
+.galaxia-elementos.tem-selecionado .galaxia-no:not(.selecionado) {
+  opacity: 0.25;
+}
+
+.galaxia-no.selecionado {
+  border-color: var(--cor);
+  box-shadow: 0 0 34px color-mix(in srgb, var(--cor) 70%, transparent);
+}
+
+/* cartão de informação que aparece quando um nó é clicado */
+.galaxia-info {
+  margin-top: 24px;
+  padding: 24px;
+  border: 1px solid #262626;
+  border-radius: 16px;
+  background: #131313;
+  text-align: left;
+  max-width: 460px;
+  margin-left: auto;
+  margin-right: auto;
+
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.galaxia-info.visivel {
   opacity: 1;
   transform: translateY(0);
+  pointer-events: auto;
 }
 
-.contato p {
+.galaxia-info-titulo {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.galaxia-info-desc {
   color: #b3b3b3;
-  margin-bottom: 32px;
+  font-size: 14px;
+  margin-bottom: 16px;
 }
 
+.galaxia-fechar {
+  background: transparent;
+  border: 1px solid #333;
+  color: #f5f5f5;
+  border-radius: 20px;
+  padding: 8px 18px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.galaxia-fechar:hover {
+  border-color: #f5f5f5;
+}
+
+/* ===== CONTATO ===== */
 .contato-form {
-  max-width: 480px;
-  margin: 0 auto;
+  max-width: 460px;
+  margin: 32px auto 0;
   display: flex;
   flex-direction: column;
   gap: 16px;

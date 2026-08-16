@@ -8,69 +8,115 @@
 </head>
 <body>
 
-  <!-- ===== HEADER ===== -->
+  <!-- ===== HEADER (fica sempre fixo por cima de tudo) ===== -->
   <header class="header">
     <div class="logo">DFRE</div>
     <nav class="nav">
-      <a href="#inicio">Início</a>
-      <a href="#sobre">Sobre</a>
-      <a href="#produtos">Produtos</a>
-      <a href="#contato">Contato</a>
+      <a href="#" data-index="0">Início</a>
+      <a href="#" data-index="1">Sobre</a>
+      <a href="#" data-index="2">Produtos</a>
+      <a href="#" data-index="3">App</a>
+      <a href="#" data-index="4">Contato</a>
     </nav>
   </header>
 
-  <!-- ===== HERO ===== -->
-  <section class="hero" id="inicio">
-    <h1 class="hero-title">Disciplina que transforma.</h1>
-    <p class="hero-subtitle">Construindo hábitos, mentalidade e resultados reais.</p>
-    <a href="#produtos" class="hero-button">Conheça o app</a>
-  </section>
+  <!-- ===== ESPAÇO DE ROLAGEM (invisível, só existe pra gerar a barra de scroll) ===== -->
+  <div class="scroll-space"></div>
 
-  <!-- ===== SOBRE ===== -->
-  <section class="sobre" id="sobre">
-    <h2>Sobre a DFRE</h2>
-    <p>Aqui vai a história e o propósito por trás da marca — o que motivou a criação do Manual da Disciplina e do app.</p>
-  </section>
+  <!-- ===== JANELA 3D FIXA (é aqui que a "viagem" acontece de verdade) ===== -->
+  <div class="viewport">
+    <div class="scene">
 
-  <!-- ===== PRODUTOS / SERVIÇOS ===== -->
-  <section class="produtos" id="produtos">
-    <h2>Nossos Produtos</h2>
-    <div class="produtos-grid">
+      <!-- Painel 0: Hero -->
+      <section class="panel" data-panel="0">
+        <h1 class="hero-title">Disciplina que transforma.</h1>
+        <p class="hero-subtitle">Construindo hábitos, mentalidade e resultados reais.</p>
+        <a href="#" class="hero-button" data-index="2">Conheça o app</a>
+      </section>
 
-      <div class="produto-card produto-destaque">
-        <span class="produto-tag">Principal</span>
-        <h3>App DFRE</h3>
-        <p>O acompanhamento diário de disciplina, hábitos e evolução — nosso produto principal.</p>
-        <a href="#contato" class="produto-link">Saiba mais</a>
-      </div>
+      <!-- Painel 1: Sobre -->
+      <section class="panel" data-panel="1">
+        <h2>Sobre a DFRE</h2>
+        <p class="panel-texto">Aqui vai a história e o propósito por trás da marca — o que motivou a criação do Manual da Disciplina e do app.</p>
+      </section>
 
-      <div class="produto-card">
-        <h3>Manual da Disciplina</h3>
-        <p>O ebook que dá o pontapé inicial: os códigos e princípios da disciplina em formato prático.</p>
-        <a href="#contato" class="produto-link">Saiba mais</a>
-      </div>
+      <!-- Painel 2: Produtos -->
+      <section class="panel panel-produtos" data-panel="2">
+        <h2>Nossos Produtos</h2>
+        <div class="produtos-grid">
 
-      <div class="produto-card">
-        <h3>DFRE Agency</h3>
-        <p>Estratégia e execução para marcas que querem crescer com consistência.</p>
-        <a href="#contato" class="produto-link">Saiba mais</a>
-      </div>
+          <div class="produto-card produto-destaque">
+            <span class="produto-tag">Principal</span>
+            <h3>App DFRE</h3>
+            <p>O acompanhamento diário de disciplina, hábitos e evolução — nosso produto principal.</p>
+            <a href="#" class="produto-link" data-index="3">Explorar</a>
+          </div>
+
+          <div class="produto-card">
+            <h3>Manual da Disciplina</h3>
+            <p>O ebook que dá o pontapé inicial: os códigos e princípios da disciplina em formato prático.</p>
+            <a href="#" class="produto-link" data-index="4">Saiba mais</a>
+          </div>
+
+          <div class="produto-card">
+            <h3>DFRE Agency</h3>
+            <p>Estratégia e execução para marcas que querem crescer com consistência.</p>
+            <a href="#" class="produto-link" data-index="4">Saiba mais</a>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Painel 3: Galáxia do App -->
+      <section class="panel panel-galaxia" data-panel="3">
+        <h2>Dentro do App DFRE</h2>
+        <p class="panel-texto galaxia-instrucao">Clique em cada elemento pra explorar.</p>
+
+        <div class="galaxia-elementos">
+          <div class="galaxia-fundo"></div>
+          <div class="galaxia-estrelas"></div>
+          <div class="galaxia-anel galaxia-anel-1"></div>
+          <div class="galaxia-anel galaxia-anel-2"></div>
+
+          <button class="galaxia-no" style="--x: -32%; --y: -22%; --cor: #7c5cff;" data-titulo="Check-in Diário" data-desc="Registre em segundos como foi seu dia e mantenha a sequência viva.">
+            <span>Check-in</span>
+          </button>
+          <button class="galaxia-no" style="--x: 30%; --y: -30%; --cor: #ff5c8a;" data-titulo="Metas & Streaks" data-desc="Defina metas claras e acompanhe sua sequência de disciplina crescer dia após dia.">
+            <span>Metas</span>
+          </button>
+          <button class="galaxia-no galaxia-no-central" style="--x: 0%; --y: 0%; --cor: #5cd6ff;" data-titulo="IA Coach" data-desc="Seu coach pessoal por IA, disponível a qualquer hora pra te orientar e ajustar a rota.">
+            <span>IA Coach</span>
+          </button>
+          <button class="galaxia-no" style="--x: -28%; --y: 28%; --cor: #5cff8f;" data-titulo="Progresso" data-desc="Veja sua evolução em gráficos simples e entenda seus padrões ao longo do tempo.">
+            <span>Progresso</span>
+          </button>
+          <button class="galaxia-no" style="--x: 32%; --y: 26%; --cor: #ffb85c;" data-titulo="Comunidade" data-desc="Conecte-se com outras pessoas na mesma jornada de disciplina e propósito.">
+            <span>Comunidade</span>
+          </button>
+        </div>
+
+        <div class="galaxia-info">
+          <h3 class="galaxia-info-titulo"></h3>
+          <p class="galaxia-info-desc"></p>
+          <button class="galaxia-fechar">Fechar</button>
+        </div>
+      </section>
+
+      <!-- Painel 4: Contato -->
+      <section class="panel" data-panel="4">
+        <h2>Fale com a gente</h2>
+        <p class="panel-texto">Tem interesse no app, no ebook ou na agência? Manda uma mensagem.</p>
+
+        <form class="contato-form">
+          <input type="text" name="nome" placeholder="Seu nome" required>
+          <input type="email" name="email" placeholder="Seu e-mail" required>
+          <textarea name="mensagem" placeholder="Sua mensagem" rows="4" required></textarea>
+          <button type="submit">Enviar</button>
+        </form>
+      </section>
 
     </div>
-  </section>
-
-  <!-- ===== CONTATO ===== -->
-  <section class="contato" id="contato">
-    <h2>Fale com a gente</h2>
-    <p>Tem interesse no app, no ebook ou na agência? Manda uma mensagem.</p>
-
-    <form class="contato-form">
-      <input type="text" name="nome" placeholder="Seu nome" required>
-      <input type="email" name="email" placeholder="Seu e-mail" required>
-      <textarea name="mensagem" placeholder="Sua mensagem" rows="4" required></textarea>
-      <button type="submit">Enviar</button>
-    </form>
-  </section>
+  </div>
 
   <script src="script.js"></script>
 </body>
