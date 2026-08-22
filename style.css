@@ -4,459 +4,506 @@
   box-sizing: border-box;
 }
 
-html, body {
-  height: 100%;
+:root {
+  --cor-fundo: #0a0908;
+  --cor-fundo-alt: #141210;
+  --cor-dourado: #d9ad5c;
+  --cor-dourado-forte: #c9974a;
+  --cor-texto: #f5f2ea;
+  --cor-texto-suave: #b8ae9c;
+  --borda: #2a2419;
+  --raio: 14px;
 }
 
 body {
   font-family: 'Segoe UI', Arial, sans-serif;
-  background-color: #0d0d0d;
-  color: #f5f5f5;
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+  line-height: 1.5;
 }
 
-/* ===== HEADER (fixo por cima da experiência 3D) ===== */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+h1, h2, h3 {
+  font-family: Georgia, 'Times New Roman', serif;
+  line-height: 1.25;
+}
+
+.destaque {
+  color: var(--cor-dourado);
+}
+
+/* elemento que aparece suavemente quando entra na tela
+   (classe adicionada via JavaScript com IntersectionObserver) */
+.aparecer {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.aparecer.visivel {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== SELOS / TAGS ===== */
+.selo {
+  display: inline-block;
+  border: 1px solid var(--cor-dourado);
+  color: var(--cor-dourado);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+}
+
+/* ===== BOTÕES ===== */
+.botao {
+  display: inline-block;
+  text-decoration: none;
+  font-weight: 700;
+  border-radius: 30px;
+  padding: 15px 30px;
+  text-align: center;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.botao-principal {
+  background: var(--cor-dourado);
+  color: #1a1305;
+}
+
+.botao-principal:hover {
+  background: var(--cor-dourado-forte);
+  transform: translateY(-2px);
+}
+
+.botao-secundario {
+  background: transparent;
+  border: 1px solid var(--cor-dourado);
+  color: var(--cor-dourado);
+}
+
+.botao-secundario:hover {
+  background: var(--cor-dourado);
+  color: #1a1305;
+}
+
+.botao-grande {
+  width: 100%;
+  padding: 18px;
+  font-size: 17px;
+}
+
+/* ===== HEADER ===== */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 24px 60px;
-  position: fixed;
+  padding: 16px 20px;
+  position: sticky;
   top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 100;
-  background: rgba(13, 13, 13, 0.5);
+  z-index: 50;
+  background: rgba(10, 9, 8, 0.85);
   backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--borda);
 }
 
 .logo {
   font-weight: 700;
-  font-size: 22px;
+  font-size: 20px;
   letter-spacing: 2px;
+  color: var(--cor-dourado);
 }
 
-.nav a {
-  color: #f5f5f5;
+.header-cta {
+  background: var(--cor-dourado);
+  color: #1a1305;
   text-decoration: none;
-  margin-left: 32px;
-  font-size: 15px;
-  opacity: 0.8;
-  cursor: pointer;
-  transition: opacity 0.3s ease;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 8px 16px;
+  border-radius: 20px;
 }
 
-.nav a:hover {
-  opacity: 1;
-}
-
-/* =========================================================
-   ESPAÇO DE ROLAGEM
-   Essa div não tem conteúdo visível — ela só existe pra criar
-   altura na página e assim gerar uma barra de rolagem.
-   O JavaScript lê a posição do scroll aqui e usa esse número
-   pra calcular a posição 3D de cada painel lá embaixo.
-   ========================================================= */
-.scroll-space {
-  /* 6 "telas" de altura = espaço pra rolar por 5 painéis com folga no final */
-  height: 600vh;
-}
-
-/* =========================================================
-   JANELA 3D (viewport)
-   Fica fixa na tela inteira. "perspective" é o que dá a
-   sensação de profundidade: quanto menor o valor, mais
-   exagerado o efeito 3D.
-   ========================================================= */
-.viewport {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  perspective: 1400px;
-  background: #0d0d0d;
-}
-
-.scene {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transform-style: preserve-3d;
-}
-
-/* =========================================================
-   PAINÉIS
-   Cada seção começa "longe" (pequena, transparente) e o
-   JavaScript vai atualizando seu transform conforme o
-   usuário rola, fazendo ela se aproximar, ocupar a tela,
-   e depois continuar "voando" na direção da câmera.
-   ========================================================= */
-.panel {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: min(700px, 88vw);
+/* ===== HERO ===== */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  transform-origin: center center;
-  will-change: transform, opacity;
-  /* posição inicial: bem longe e invisível.
-     o JavaScript sobrescreve isso a cada frame de scroll */
-  transform: translate(-50%, -50%) translateZ(-3000px) scale(0.2);
-  opacity: 0;
+  padding: 40px 20px;
+  gap: 32px;
 }
 
-.panel-produtos {
-  width: min(1000px, 92vw);
+.hero-texto {
+  max-width: 480px;
 }
 
-.panel h1,
-.panel h2 {
-  font-weight: 800;
+.hero h1 {
+  font-size: clamp(30px, 8vw, 44px);
+  margin-bottom: 14px;
 }
 
-.hero-title {
-  font-size: clamp(32px, 6vw, 68px);
+.hero-subtitulo {
+  color: var(--cor-texto-suave);
+  font-size: 16px;
+  margin-bottom: 24px;
 }
 
-.hero-subtitle,
-.panel-texto {
-  margin-top: 20px;
-  font-size: clamp(15px, 2vw, 19px);
-  color: #b3b3b3;
+.prova-social {
+  margin-top: 18px;
+  font-size: 13px;
+  color: var(--cor-texto-suave);
 }
 
-.panel h2 {
-  font-size: clamp(28px, 4vw, 40px);
-  margin-bottom: 16px;
+.estrelas {
+  display: block;
+  color: var(--cor-dourado);
+  letter-spacing: 2px;
+  margin-bottom: 4px;
 }
 
-.hero-button {
-  display: inline-block;
-  margin-top: 36px;
-  padding: 14px 32px;
-  border-radius: 30px;
-  background: #f5f5f5;
-  color: #0d0d0d;
-  text-decoration: none;
-  font-weight: 600;
-  transition: transform 0.3s ease;
+.hero-imagem img {
+  max-width: 280px;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 }
 
-.hero-button:hover {
-  transform: scale(1.05);
+/* ===== TRANSFORMAÇÃO (Hoje vs Amanhã) ===== */
+.transformacao {
+  padding: 60px 20px;
+  text-align: center;
 }
 
-/* ===== PRODUTOS ===== */
-.produtos-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 24px;
-  margin-top: 40px;
+.transformacao h2 {
+  font-size: clamp(24px, 6vw, 32px);
+  margin-bottom: 32px;
 }
 
-.produto-card {
-  background: #161616;
-  border: 1px solid #262626;
-  border-radius: 16px;
-  padding: 28px 22px;
+.transformacao-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.transformacao-seta {
+  color: var(--cor-dourado);
+  font-size: 24px;
+}
+
+.transformacao-card {
+  width: 100%;
+  background: var(--cor-fundo-alt);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  padding: 24px;
   text-align: left;
-  position: relative;
-
-  /* estado inicial: escondido, vai aparecer com um pequeno atraso
-     em cascata quando o painel de produtos estiver ativo */
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
-.panel-produtos.ativo .produto-card {
-  opacity: 1;
-  transform: translateY(0);
+.card-amanha {
+  border-color: var(--cor-dourado);
 }
 
-.panel-produtos.ativo .produto-card:nth-child(1) { transition-delay: 0.05s; }
-.panel-produtos.ativo .produto-card:nth-child(2) { transition-delay: 0.2s; }
-.panel-produtos.ativo .produto-card:nth-child(3) { transition-delay: 0.35s; }
-
-.produto-destaque {
-  border-color: #f5f5f5;
-}
-
-.produto-tag {
+.transformacao-tag {
   display: inline-block;
-  background: #f5f5f5;
-  color: #0d0d0d;
   font-size: 12px;
   font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 20px;
+  letter-spacing: 1px;
+  color: var(--cor-texto-suave);
   margin-bottom: 12px;
 }
 
-.produto-card h3 {
-  font-size: 19px;
-  margin-bottom: 10px;
+.transformacao-tag-dourada {
+  color: var(--cor-dourado);
 }
 
-.produto-card p {
-  color: #b3b3b3;
+.transformacao-card ul {
+  list-style: none;
+}
+
+.transformacao-card li {
+  padding: 6px 0;
+  color: var(--cor-texto-suave);
+}
+
+.card-amanha li {
+  color: var(--cor-texto);
+}
+
+/* ===== BENEFÍCIOS ===== */
+.beneficios {
+  padding: 60px 20px;
+}
+
+.beneficios h2 {
+  text-align: center;
+  font-size: clamp(24px, 6vw, 32px);
+  margin-bottom: 40px;
+}
+
+.beneficio-item {
+  display: flex;
+  gap: 20px;
+  max-width: 560px;
+  margin: 0 auto 32px;
+}
+
+.beneficio-numero {
+  font-family: Georgia, serif;
+  font-size: 28px;
+  color: var(--cor-dourado);
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
+.beneficio-item h3 {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.beneficio-item p {
+  color: var(--cor-texto-suave);
   font-size: 14px;
+}
+
+/* ===== SISTEMA COMPLETO ===== */
+.sistema {
+  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+  text-align: center;
+}
+
+.sistema-imagem img {
+  border-radius: var(--raio);
+  max-width: 420px;
+}
+
+.sistema-texto {
+  max-width: 480px;
+}
+
+.sistema-texto h2 {
+  font-size: clamp(22px, 6vw, 30px);
+  margin: 12px 0 20px;
+}
+
+.sistema-lista {
+  list-style: none;
+  text-align: left;
+  margin-bottom: 28px;
+}
+
+.sistema-lista li {
+  padding: 8px 0;
+  color: var(--cor-texto-suave);
+  border-bottom: 1px solid var(--borda);
+  font-size: 14px;
+}
+
+.sistema-lista strong {
+  color: var(--cor-texto);
+}
+
+/* ===== AUTORIDADE ===== */
+.autoridade {
+  padding: 60px 20px;
+  text-align: center;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.autoridade-simbolo {
+  width: 90px;
+  margin: 0 auto 20px;
+  opacity: 0.9;
+}
+
+.autoridade h2 {
+  font-size: clamp(22px, 6vw, 30px);
   margin-bottom: 18px;
 }
 
-.produto-link {
-  color: #f5f5f5;
-  font-size: 14px;
-  text-decoration: none;
+.autoridade p {
+  color: var(--cor-texto-suave);
+  font-size: 15px;
+}
+
+/* ===== COMPRAR ===== */
+.comprar {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.comprar h2 {
+  font-size: clamp(24px, 6vw, 32px);
+  margin-bottom: 10px;
+}
+
+.comprar-subtitulo {
+  color: var(--cor-texto-suave);
+  font-size: 15px;
+  margin-bottom: 32px;
+}
+
+.comprar-card {
+  max-width: 400px;
+  margin: 0 auto;
+  background: var(--cor-fundo-alt);
+  border: 1px solid var(--cor-dourado);
+  border-radius: var(--raio);
+  padding: 32px 24px;
+}
+
+.comprar-preco {
+  font-size: 17px;
+  margin-bottom: 24px;
+}
+
+.comprar-garantia {
+  margin-top: 14px;
+  font-size: 12px;
+  color: var(--cor-texto-suave);
+}
+
+/* ===== FAQ ===== */
+.faq {
+  padding: 60px 20px;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.faq h2 {
+  text-align: center;
+  font-size: clamp(24px, 6vw, 32px);
+  margin-bottom: 32px;
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--borda);
+}
+
+.faq-pergunta {
+  width: 100%;
+  background: none;
+  border: none;
+  color: var(--cor-texto);
+  font-size: 15px;
   font-weight: 600;
-  border-bottom: 1px solid #f5f5f5;
-  padding-bottom: 2px;
+  text-align: left;
+  padding: 18px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.faq-icone {
+  color: var(--cor-dourado);
+  font-size: 20px;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+  margin-left: 12px;
+}
+
+.faq-item.aberto .faq-icone {
+  transform: rotate(45deg);
+}
+
+.faq-resposta {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+
+.faq-item.aberto .faq-resposta {
+  max-height: 200px;
+}
+
+.faq-resposta p {
+  color: var(--cor-texto-suave);
+  font-size: 14px;
+  padding-bottom: 18px;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  text-align: center;
+  padding: 32px 20px;
+  border-top: 1px solid var(--borda);
+}
+
+.footer p {
+  color: var(--cor-texto-suave);
+  font-size: 12px;
+  margin-top: 8px;
 }
 
 /* =========================================================
-   GALÁXIA DO APP
-   Cada "nó" flutua suavemente usando @keyframes, com posição
-   base definida por variáveis CSS (--x, --y) no próprio HTML,
-   assim cada elemento fica espalhado sem precisar repetir CSS.
+   TELAS MAIORES (tablet e desktop)
+   Mobile é a base; aqui a gente só reorganiza pra aproveitar
+   o espaço extra, sem duplicar nada.
    ========================================================= */
-.panel-galaxia {
-  width: min(900px, 92vw);
-}
+@media (min-width: 760px) {
+  .header {
+    padding: 20px 60px;
+  }
 
-.galaxia-instrucao {
-  margin-top: 4px;
-  margin-bottom: 0;
-}
+  .hero {
+    flex-direction: row;
+    text-align: left;
+    justify-content: center;
+    padding: 80px 60px;
+    gap: 60px;
+  }
 
-.galaxia-elementos {
-  position: relative;
-  height: 420px;
-  margin-top: 20px;
-  isolation: isolate; /* garante que o fundo não vaze por cima dos nós */
-}
+  .hero-texto {
+    max-width: 460px;
+  }
 
-/* fundo tipo "nebulosa" atrás dos elementos */
-.galaxia-fundo {
-  position: absolute;
-  inset: -40px;
-  z-index: -2;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 30% 30%, rgba(124, 92, 255, 0.25), transparent 55%),
-    radial-gradient(circle at 70% 65%, rgba(92, 214, 255, 0.2), transparent 55%),
-    radial-gradient(circle at 50% 85%, rgba(255, 92, 138, 0.15), transparent 55%);
-  filter: blur(20px);
-  animation: nebulosaPulsar 10s ease-in-out infinite;
-}
+  .transformacao-grid {
+    flex-direction: row;
+    max-width: 700px;
+  }
 
-@keyframes nebulosaPulsar {
-  0%, 100% { transform: scale(1); opacity: 0.85; }
-  50% { transform: scale(1.08); opacity: 1; }
-}
+  .transformacao-card {
+    flex: 1;
+  }
 
-/* estrelinhas geradas via JavaScript, cada uma pisca em um tempo diferente */
-.galaxia-estrelas {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-}
+  .sistema {
+    flex-direction: row;
+    text-align: left;
+    padding: 90px 60px;
+    gap: 60px;
+  }
 
-.estrela {
-  position: absolute;
-  width: 2px;
-  height: 2px;
-  border-radius: 50%;
-  background: #ffffff;
-  animation: piscar 3s ease-in-out infinite;
-}
+  .sistema-imagem {
+    flex: 1;
+  }
 
-@keyframes piscar {
-  0%, 100% { opacity: 0.15; }
-  50% { opacity: 0.9; }
-}
+  .sistema-texto {
+    flex: 1;
+  }
 
-/* anéis orbitando ao redor do centro, reforçando a sensação de sistema */
-.galaxia-anel {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  border: 1px dashed rgba(245, 245, 245, 0.12);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  z-index: -1;
-}
-
-.galaxia-anel-1 {
-  width: 280px;
-  height: 280px;
-  animation: girar 40s linear infinite;
-}
-
-.galaxia-anel-2 {
-  width: 400px;
-  height: 400px;
-  border-color: rgba(245, 245, 245, 0.07);
-  animation: girar 60s linear infinite reverse;
-}
-
-@keyframes girar {
-  from { transform: translate(-50%, -50%) rotate(0deg); }
-  to { transform: translate(-50%, -50%) rotate(360deg); }
-}
-
-.galaxia-no {
-  position: absolute;
-  top: calc(50% + var(--y));
-  left: calc(50% + var(--x));
-  transform: translate(-50%, -50%);
-  width: 96px;
-  height: 96px;
-  border-radius: 50%;
-  border: 1px solid color-mix(in srgb, var(--cor) 55%, transparent);
-  background: radial-gradient(circle at 30% 30%, color-mix(in srgb, var(--cor) 25%, #0d0d0d), #0d0d0d 70%);
-  color: #f5f5f5;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 8px;
-  animation: flutuar 6s ease-in-out infinite, brilhar 4s ease-in-out infinite;
-  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.galaxia-no:hover {
-  border-color: var(--cor);
-  box-shadow: 0 0 32px color-mix(in srgb, var(--cor) 60%, transparent);
-}
-
-.galaxia-no-central {
-  width: 120px;
-  height: 120px;
-  animation-duration: 8s, 4s;
-}
-
-/* pequenas variações de tempo/atraso pra não flutuarem todos juntos */
-.galaxia-no:nth-child(4) { animation-delay: 0s, 0s; }
-.galaxia-no:nth-child(5) { animation-delay: 1.2s, 0.5s; }
-.galaxia-no:nth-child(6) { animation-delay: 0.6s, 1s; }
-.galaxia-no:nth-child(7) { animation-delay: 2s, 1.5s; }
-.galaxia-no:nth-child(8) { animation-delay: 0.3s, 2s; }
-
-@keyframes flutuar {
-  0%, 100% { transform: translate(-50%, -50%) translateY(0) translateX(0); }
-  33% { transform: translate(-50%, -50%) translateY(-14px) translateX(6px); }
-  66% { transform: translate(-50%, -50%) translateY(6px) translateX(-8px); }
-}
-
-@keyframes brilhar {
-  0%, 100% { box-shadow: 0 0 14px color-mix(in srgb, var(--cor) 35%, transparent); }
-  50% { box-shadow: 0 0 26px color-mix(in srgb, var(--cor) 55%, transparent); }
-}
-
-/* quando um elemento está com detalhes abertos, os outros escurecem */
-.galaxia-elementos.tem-selecionado .galaxia-no:not(.selecionado) {
-  opacity: 0.25;
-}
-
-.galaxia-no.selecionado {
-  border-color: var(--cor);
-  box-shadow: 0 0 34px color-mix(in srgb, var(--cor) 70%, transparent);
-}
-
-/* cartão de informação que aparece quando um nó é clicado */
-.galaxia-info {
-  margin-top: 24px;
-  padding: 24px;
-  border: 1px solid #262626;
-  border-radius: 16px;
-  background: #131313;
-  text-align: left;
-  max-width: 460px;
-  margin-left: auto;
-  margin-right: auto;
-
-  opacity: 0;
-  transform: translateY(12px);
-  pointer-events: none;
-  transition: opacity 0.4s ease, transform 0.4s ease;
-}
-
-.galaxia-info.visivel {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-
-.galaxia-info-titulo {
-  font-size: 18px;
-  margin-bottom: 8px;
-}
-
-.galaxia-info-desc {
-  color: #b3b3b3;
-  font-size: 14px;
-  margin-bottom: 16px;
-}
-
-.galaxia-fechar {
-  background: transparent;
-  border: 1px solid #333;
-  color: #f5f5f5;
-  border-radius: 20px;
-  padding: 8px 18px;
-  font-size: 13px;
-  cursor: pointer;
-  transition: border-color 0.3s ease;
-}
-
-.galaxia-fechar:hover {
-  border-color: #f5f5f5;
-}
-
-/* ===== CONTATO ===== */
-.contato-form {
-  max-width: 460px;
-  margin: 32px auto 0;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.contato-form input,
-.contato-form textarea {
-  background: #161616;
-  border: 1px solid #262626;
-  border-radius: 10px;
-  padding: 14px 16px;
-  color: #f5f5f5;
-  font-family: inherit;
-  font-size: 15px;
-  resize: none;
-}
-
-.contato-form input:focus,
-.contato-form textarea:focus {
-  outline: none;
-  border-color: #f5f5f5;
-}
-
-.contato-form button {
-  background: #f5f5f5;
-  color: #0d0d0d;
-  border: none;
-  border-radius: 30px;
-  padding: 14px;
-  font-weight: 600;
-  font-size: 15px;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.contato-form button:hover {
-  transform: scale(1.02);
+  .beneficios,
+  .comprar,
+  .faq,
+  .autoridade,
+  .transformacao {
+    padding-left: 60px;
+    padding-right: 60px;
+  }
 }

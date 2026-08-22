@@ -3,120 +3,177 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DFRE</title>
+  <title>Manual da Disciplina | DFRE</title>
+  <meta name="description" content="Como recuperar seu foco, vencer a procrastinação e executar mesmo sem motivação. 16 códigos de execução real.">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- ===== HEADER (fica sempre fixo por cima de tudo) ===== -->
+  <!-- ===== HEADER ===== -->
   <header class="header">
     <div class="logo">DFRE</div>
-    <nav class="nav">
-      <a href="#" data-index="0">Início</a>
-      <a href="#" data-index="1">Sobre</a>
-      <a href="#" data-index="2">Produtos</a>
-      <a href="#" data-index="3">App</a>
-      <a href="#" data-index="4">Contato</a>
-    </nav>
+    <a href="#comprar" class="header-cta">Quero o ebook</a>
   </header>
 
-  <!-- ===== ESPAÇO DE ROLAGEM (invisível, só existe pra gerar a barra de scroll) ===== -->
-  <div class="scroll-space"></div>
+  <main>
 
-  <!-- ===== JANELA 3D FIXA (é aqui que a "viagem" acontece de verdade) ===== -->
-  <div class="viewport">
-    <div class="scene">
-
-      <!-- Painel 0: Hero -->
-      <section class="panel" data-panel="0">
-        <h1 class="hero-title">Disciplina que transforma.</h1>
-        <p class="hero-subtitle">Construindo hábitos, mentalidade e resultados reais.</p>
-        <a href="#" class="hero-button" data-index="2">Conheça o app</a>
-      </section>
-
-      <!-- Painel 1: Sobre -->
-      <section class="panel" data-panel="1">
-        <h2>Sobre a DFRE</h2>
-        <p class="panel-texto">Aqui vai a história e o propósito por trás da marca — o que motivou a criação do Manual da Disciplina e do app.</p>
-      </section>
-
-      <!-- Painel 2: Produtos -->
-      <section class="panel panel-produtos" data-panel="2">
-        <h2>Nossos Produtos</h2>
-        <div class="produtos-grid">
-
-          <div class="produto-card produto-destaque">
-            <span class="produto-tag">Principal</span>
-            <h3>App DFRE</h3>
-            <p>O acompanhamento diário de disciplina, hábitos e evolução — nosso produto principal.</p>
-            <a href="#" class="produto-link" data-index="3">Explorar</a>
-          </div>
-
-          <div class="produto-card">
-            <h3>Manual da Disciplina</h3>
-            <p>O ebook que dá o pontapé inicial: os códigos e princípios da disciplina em formato prático.</p>
-            <a href="#" class="produto-link" data-index="4">Saiba mais</a>
-          </div>
-
-          <div class="produto-card">
-            <h3>DFRE Agency</h3>
-            <p>Estratégia e execução para marcas que querem crescer com consistência.</p>
-            <a href="#" class="produto-link" data-index="4">Saiba mais</a>
-          </div>
-
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+      <div class="hero-texto">
+        <span class="selo">16 CÓDIGOS DE EXECUÇÃO REAL</span>
+        <h1>Manual da <span class="destaque">Disciplina</span></h1>
+        <p class="hero-subtitulo">Como recuperar seu foco, vencer a procrastinação e executar mesmo sem motivação.</p>
+        <a href="#comprar" class="botao botao-principal">Quero começar agora</a>
+        <div class="prova-social">
+          <span class="estrelas">★★★★★</span>
+          <span>Método usado por quem decidiu parar de adiar</span>
         </div>
-      </section>
+      </div>
+      <div class="hero-imagem">
+        <img src="imagens/capa-ebook.jpg" alt="Capa do ebook Manual da Disciplina" width="360" height="450" loading="eager">
+      </div>
+    </section>
 
-      <!-- Painel 3: Galáxia do App -->
-      <section class="panel panel-galaxia" data-panel="3">
-        <h2>Dentro do App DFRE</h2>
-        <p class="panel-texto galaxia-instrucao">Clique em cada elemento pra explorar.</p>
-
-        <div class="galaxia-elementos">
-          <div class="galaxia-fundo"></div>
-          <div class="galaxia-estrelas"></div>
-          <div class="galaxia-anel galaxia-anel-1"></div>
-          <div class="galaxia-anel galaxia-anel-2"></div>
-
-          <button class="galaxia-no" style="--x: -32%; --y: -22%; --cor: #7c5cff;" data-titulo="Check-in Diário" data-desc="Registre em segundos como foi seu dia e mantenha a sequência viva.">
-            <span>Check-in</span>
-          </button>
-          <button class="galaxia-no" style="--x: 30%; --y: -30%; --cor: #ff5c8a;" data-titulo="Metas & Streaks" data-desc="Defina metas claras e acompanhe sua sequência de disciplina crescer dia após dia.">
-            <span>Metas</span>
-          </button>
-          <button class="galaxia-no galaxia-no-central" style="--x: 0%; --y: 0%; --cor: #5cd6ff;" data-titulo="IA Coach" data-desc="Seu coach pessoal por IA, disponível a qualquer hora pra te orientar e ajustar a rota.">
-            <span>IA Coach</span>
-          </button>
-          <button class="galaxia-no" style="--x: -28%; --y: 28%; --cor: #5cff8f;" data-titulo="Progresso" data-desc="Veja sua evolução em gráficos simples e entenda seus padrões ao longo do tempo.">
-            <span>Progresso</span>
-          </button>
-          <button class="galaxia-no" style="--x: 32%; --y: 26%; --cor: #ffb85c;" data-titulo="Comunidade" data-desc="Conecte-se com outras pessoas na mesma jornada de disciplina e propósito.">
-            <span>Comunidade</span>
-          </button>
+    <!-- ===== HOJE VS AMANHÃ ===== -->
+    <section class="transformacao">
+      <h2>Duas versões de você. <span class="destaque">Uma decisão.</span></h2>
+      <div class="transformacao-grid">
+        <div class="transformacao-card card-hoje">
+          <span class="transformacao-tag">HOJE</span>
+          <ul>
+            <li>Procrastinação</li>
+            <li>Sem foco</li>
+            <li>Sem direção</li>
+            <li>Sem mais resultados</li>
+          </ul>
         </div>
-
-        <div class="galaxia-info">
-          <h3 class="galaxia-info-titulo"></h3>
-          <p class="galaxia-info-desc"></p>
-          <button class="galaxia-fechar">Fechar</button>
+        <div class="transformacao-seta">→</div>
+        <div class="transformacao-card card-amanha">
+          <span class="transformacao-tag transformacao-tag-dourada">AMANHÃ</span>
+          <ul>
+            <li>Disciplina</li>
+            <li>Foco</li>
+            <li>Execução</li>
+            <li>Liberdade</li>
+          </ul>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Painel 4: Contato -->
-      <section class="panel" data-panel="4">
-        <h2>Fale com a gente</h2>
-        <p class="panel-texto">Tem interesse no app, no ebook ou na agência? Manda uma mensagem.</p>
+    <!-- ===== O QUE VOCÊ VAI DOMINAR (benefícios numerados) ===== -->
+    <section class="beneficios">
+      <h2>O que você vai <span class="destaque">dominar</span></h2>
 
-        <form class="contato-form">
-          <input type="text" name="nome" placeholder="Seu nome" required>
-          <input type="email" name="email" placeholder="Seu e-mail" required>
-          <textarea name="mensagem" placeholder="Sua mensagem" rows="4" required></textarea>
-          <button type="submit">Enviar</button>
-        </form>
-      </section>
+      <div class="beneficio-item">
+        <span class="beneficio-numero">01</span>
+        <div>
+          <h3>Foco</h3>
+          <p>Proteja sua atenção. Aprenda a eliminar distrações e recuperar o controle sobre onde sua mente e seu tempo vão.</p>
+        </div>
+      </div>
 
-    </div>
-  </div>
+      <div class="beneficio-item">
+        <span class="beneficio-numero">02</span>
+        <div>
+          <h3>Disciplina</h3>
+          <p>Construa hábitos inquebráveis. Um sistema simples pra fazer o certo mesmo nos dias em que você não quer.</p>
+        </div>
+      </div>
+
+      <div class="beneficio-item">
+        <span class="beneficio-numero">03</span>
+        <div>
+          <h3>Execução</h3>
+          <p>Faça acontecer todos os dias. Motivação é passageira — este manual te dá o sistema que continua funcionando sem ela.</p>
+        </div>
+      </div>
+
+      <div class="beneficio-item">
+        <span class="beneficio-numero">04</span>
+        <div>
+          <h3>Liberdade</h3>
+          <p>Viva a vida que mereceu. Disciplina não é prisão — é o que te leva pra fora da estagnação de verdade.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SISTEMA COMPLETO (ebook + app) ===== -->
+    <section class="sistema">
+      <div class="sistema-imagem">
+        <img src="imagens/sistema-completo.jpg" alt="Manual da Disciplina em livro e no aplicativo DFRE" loading="lazy">
+      </div>
+      <div class="sistema-texto">
+        <span class="selo">DOIS PRODUTOS. UM SISTEMA.</span>
+        <h2>O manual te dá o mapa. <span class="destaque">O app te mantém no caminho.</span></h2>
+        <ul class="sistema-lista">
+          <li><strong>Streak diário</strong> — acompanhe sua sequência de disciplina crescer dia após dia.</li>
+          <li><strong>Mural de progresso</strong> — veja sua evolução ao lado de outras pessoas na mesma jornada.</li>
+          <li><strong>Acesso direto aos blueprints</strong> — o conteúdo do manual, sempre à mão.</li>
+        </ul>
+        <a href="#comprar" class="botao botao-secundario">Conhecer o sistema completo</a>
+      </div>
+    </section>
+
+    <!-- ===== AUTORIDADE / SOBRE A MARCA ===== -->
+    <section class="autoridade">
+      <img src="imagens/logo-monge.jpg" alt="Símbolo da marca DFRE" class="autoridade-simbolo" loading="lazy">
+      <h2>Por que a <span class="destaque">DFRE</span></h2>
+      <p>A DFRE nasceu de uma premissa simples: resultado não vem de motivação, vem de sistema. O Manual da Disciplina reúne os códigos que sustentam essa execução — sem fórmula mágica, sem promessa vazia. Só o que realmente funciona quando ninguém está olhando.</p>
+    </section>
+
+    <!-- ===== COMPRAR ===== -->
+    <section class="comprar" id="comprar">
+      <h2>Comece sua transformação <span class="destaque">agora</span></h2>
+      <p class="comprar-subtitulo">Acesso imediato ao Manual da Disciplina e aos 16 códigos de execução real.</p>
+
+      <div class="comprar-card">
+        <span class="selo">MANUAL DA DISCIPLINA</span>
+        <p class="comprar-preco">Acesso completo + bônus do app</p>
+        <a href="#" class="botao botao-principal botao-grande">Quero o meu agora</a>
+        <p class="comprar-garantia">Pagamento seguro · Acesso imediato</p>
+      </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section class="faq">
+      <h2>Perguntas <span class="destaque">frequentes</span></h2>
+
+      <div class="faq-item">
+        <button class="faq-pergunta">Preciso já ter disciplina pra começar? <span class="faq-icone">+</span></button>
+        <div class="faq-resposta">
+          <p>Não. O manual foi feito exatamente pra quem está começando do zero ou tentando recuperar o controle depois de um período de procrastinação.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-pergunta">O app está incluso na compra do ebook? <span class="faq-icone">+</span></button>
+        <div class="faq-resposta">
+          <p>Sim. Quem adquire o Manual da Disciplina tem acesso ao sistema completo, incluindo o acompanhamento diário pelo app.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-pergunta">Em quanto tempo vejo resultado? <span class="faq-icone">+</span></button>
+        <div class="faq-resposta">
+          <p>Os primeiros códigos já mudam sua rotina na primeira semana. A transformação completa depende da sua consistência aplicando o sistema.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-pergunta">É pra qualquer pessoa? <span class="faq-icone">+</span></button>
+        <div class="faq-resposta">
+          <p>Sim. O sistema foi construído pra quem quer sair da estagnação, seja em estudos, trabalho, negócios ou vida pessoal.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="logo">DFRE</div>
+    <p>&copy; 2026 DFRE. Todos os direitos reservados.</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
